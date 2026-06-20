@@ -1,0 +1,6 @@
+{
+  "name": "WebNest - CRM & Agency Platform",
+  "description": "A premium design & development agency website, AI-powered audit tool, quotation generator, and complete CRM client/admin portal, featuring a PHP/MySQL download center.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
