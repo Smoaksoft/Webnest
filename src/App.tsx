@@ -47,6 +47,48 @@ export default function App() {
 
   useEffect(() => {
     fetchState();
+    
+    // Parse URL pathnames for SPA SEO routing on initial load
+    const path = window.location.pathname;
+    if (
+      path === "/website-development-company" || 
+      path === "/web-development-services" ||
+      path === "/seo-services" ||
+      path === "/mobile-app-development" ||
+      path === "/ecommerce-solutions" ||
+      path === "/ui-ux-design" ||
+      path === "/digital-marketing-agency" ||
+      path === "/digital-marketing"
+    ) {
+      setActivePortal("website");
+      setCurrentWebTab("services");
+    } else if (path === "/blogs" || path.startsWith("/blogs/")) {
+      setActivePortal("website");
+      setCurrentWebTab("blogs");
+    } else if (path === "/portfolio") {
+      setActivePortal("website");
+      setCurrentWebTab("portfolio");
+    } else if (path === "/pricing") {
+      setActivePortal("website");
+      setCurrentWebTab("pricing");
+    } else if (path === "/audit") {
+      setActivePortal("website");
+      setCurrentWebTab("audit");
+    } else if (path === "/quote") {
+      setActivePortal("website");
+      setCurrentWebTab("quote");
+    } else if (path === "/about") {
+      setActivePortal("website");
+      setCurrentWebTab("about");
+    } else if (path === "/contact") {
+      setActivePortal("website");
+      setCurrentWebTab("contact");
+    } else if (path === "/admin") {
+      setActivePortal("admin");
+    } else if (path === "/client") {
+      setActivePortal("client");
+    }
+
     const interval = setInterval(() => {
       fetchState();
     }, 4000);
@@ -409,39 +451,7 @@ export default function App() {
             <WebNestLogo size="sm" showText={true} />
           </div>
 
-          {/* Nav Links for Switching Experience Portals */}
-          <div className="flex bg-slate-100 p-1 rounded-xl">
-            <button
-              onClick={() => { setActivePortal("website"); setCurrentWebTab("home"); }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${
-                activePortal === "website" 
-                  ? "bg-white text-[#0A66FF] shadow-sm" 
-                  : "text-slate-600 hover:text-slate-900"
-              }`}
-            >
-              <Globe className="w-3.5 h-3.5" /> 🌐 Website
-            </button>
-            <button
-              onClick={() => { setActivePortal("client"); }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${
-                activePortal === "client" 
-                  ? "bg-white text-blue-800 shadow-sm" 
-                  : "text-slate-600 hover:text-slate-900"
-              }`}
-            >
-              <User className="w-3.5 h-3.5" /> 👨 Client Portal
-            </button>
-            <button
-              onClick={() => { setActivePortal("admin"); }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${
-                activePortal === "admin" 
-                  ? "bg-white text-[#001B5E] shadow-sm" 
-                  : "text-slate-600 hover:text-slate-900"
-              }`}
-            >
-              <FolderLock className="w-3.5 h-3.5" /> ⚙️ Admin CRM
-            </button>
-          </div>
+          {/* Top bar switcher menu hidden per user request to maximize aesthetic focus */}
           
         </div>
       </header>

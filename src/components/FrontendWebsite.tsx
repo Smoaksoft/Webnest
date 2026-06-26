@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import WebNestLogo from "./WebNestLogo";
 import { 
   Globe, Laptop, Code, Smartphone, RefreshCw, Search, ShieldCheck, 
   ArrowRight, FileText, HelpCircle, Check, MapPin, Phone, Mail, 
-  Send, AlertCircle, BarChart3, Star, Download, RotateCcw
+  Send, AlertCircle, BarChart3, Star, Download, RotateCcw,
+  BookOpen, Calendar, UserCheck, TrendingUp, X
 } from "lucide-react";
 import { PortfolioProject, Testimonial, AuditReport, Quotation, AgencySettings } from "../types";
 
@@ -27,6 +28,90 @@ export default function FrontendWebsite({
   initialTab = "home"
 }: FrontendProps) {
   const [activeSubTab, setActiveSubTab] = useState<string>(initialTab);
+  const [selectedBlogPost, setSelectedBlogPost] = useState<any | null>(null);
+  const [blogSearchQuery, setBlogSearchQuery] = useState<string>("");
+  const [blogCategoryFilter, setBlogCategoryFilter] = useState<string>("All");
+
+  // Keep activeSubTab synced with prop initialTab
+  useEffect(() => {
+    if (initialTab) {
+      setActiveSubTab(initialTab);
+    }
+  }, [initialTab]);
+
+  // Synchronize browser URL, dynamic metadata titles, and descriptions for SEO
+  useEffect(() => {
+    let title = "WebNest | Website Development Company in India | SEO & App Development";
+    let desc = "WebNest provides professional website development, mobile app development, SEO services, UI/UX design, eCommerce solutions, and digital marketing services for businesses across India.";
+    
+    // Update browser URL path using pushState
+    if (activeSubTab === "home") {
+      window.history.pushState(null, "", "/");
+    } else if (activeSubTab === "services") {
+      // Keep service-specific path if already loaded, otherwise use default
+      const path = window.location.pathname;
+      if (
+        path !== "/website-development-company" &&
+        path !== "/web-development-services" &&
+        path !== "/seo-services" &&
+        path !== "/mobile-app-development" &&
+        path !== "/ecommerce-solutions" &&
+        path !== "/ui-ux-design" &&
+        path !== "/digital-marketing-agency" &&
+        path !== "/digital-marketing"
+      ) {
+        window.history.pushState(null, "", "/web-development-services");
+      }
+    } else {
+      window.history.pushState(null, "", "/" + activeSubTab);
+    }
+
+    if (activeSubTab === "services") {
+      const path = window.location.pathname;
+      if (path === "/website-development-company") {
+        title = "Website Development Company | Professional Web Development Services - WebNest";
+        desc = "WebNest is a premium website development company offering custom website development and professional web design services tailored for corporate growth.";
+      } else if (path === "/seo-services") {
+        title = "Best SEO Services | Rank #1 on Google with SEO Services by WebNest";
+        desc = "Optimize your search visibility with expert SEO services by WebNest. We build high-converting SEO strategies, structured schemas, and speed boosts.";
+      } else if (path === "/mobile-app-development") {
+        title = "Mobile App Development Services | Custom iOS & Android Apps - WebNest";
+        desc = "WebNest is a leading mobile app development team. We engineer secure, responsive, and performance-optimized iOS and Android apps.";
+      } else if (path === "/ecommerce-solutions" || path === "/ecommerce-website-development") {
+        title = "E-commerce Website Development | Responsive E-commerce Solutions - WebNest";
+        desc = "Build secure, scalable digital storefronts with our custom E-commerce Website Development. Seamless payment gateways, checkouts, and custom products.";
+      } else {
+        title = "Professional Web Development Services & Digital Marketing - WebNest";
+        desc = "WebNest provides web development, SEO, and digital marketing services across India to scale business visibility and conversions.";
+      }
+    } else if (activeSubTab === "portfolio") {
+      title = "Our Creative Web Design & App Portfolio - WebNest";
+      desc = "Explore our premium web design, SEO, custom eCommerce solutions, and web development project portfolio to see our visual craftsmanship.";
+    } else if (activeSubTab === "pricing") {
+      title = "Transparent Web Design & Development Pricing & Packages - WebNest";
+      desc = "Affordable and transparent web development services, SEO pricing plans, and app development package costs.";
+    } else if (activeSubTab === "blogs") {
+      title = "WebNest Insights Blog | Web Development & SEO Marketing Articles";
+      desc = "Read our latest developer journals about website development cost in India, small business web design templates, and actionable SEO tips.";
+    } else if (activeSubTab === "about") {
+      title = "About WebNest | Leading Website Designer & Developer";
+      desc = "WebNest is an award-winning website designer and developer. Learn about our mission to build digital experiences that drive exponential business growth.";
+    } else if (activeSubTab === "contact") {
+      title = "Contact WebNest | Website Development Company in India";
+      desc = "Get in touch with WebNest today. Let's discuss your custom web development, mobile app, SEO optimization, or digital marketing agency requirements.";
+    }
+    
+    document.title = title;
+    
+    // Update meta description
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.setAttribute('name', 'description');
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute('content', desc);
+  }, [activeSubTab]);
   
   // Website Audit State
   const [auditUrl, setAuditUrl] = useState("");
@@ -134,39 +219,39 @@ export default function FrontendWebsite({
   const servicesList = [
     { 
       icon: <Globe className="w-8 h-8 text-[#0A66FF]" />, 
-      title: "Website Design", 
-      desc: "Stunning aesthetic graphics paired with visual layout grids crafted in custom Figma boards to reinforce your corporate identity.",
+      title: "Website Designer", 
+      desc: "Stunning aesthetic graphics paired with visual layout grids crafted in custom Figma boards by our expert website designer team to reinforce your corporate identity.",
       benefits: ["Distinctive UI layout aesthetics", "Premium design iterations", "Eye-friendly viewport compliance"]
     },
     { 
       icon: <Code className="w-8 h-8 text-[#03b879]" />, 
-      title: "Website Development", 
-      desc: "Fast, standards-compliant backend and frontend engineering. We code templates with lightning speeds and clean system controllers.",
-      benefits: ["Highly indexed web layouts", "Robust PDO database security", "Clean object-oriented templates"]
-    },
-    { 
-      icon: <Laptop className="w-8 h-8 text-[#0a66ff]" />, 
-      title: "WordPress Development", 
-      desc: "Flexible, user-friendly CMS setup using premium custom themes and optimized configurations for smooth client self-editing.",
-      benefits: ["Simple admin editing modules", "Highly reliable plugins setup", "Optimized database caching libraries"]
+      title: "Website Development Services", 
+      desc: "Fast, standards-compliant backend and frontend engineering. As a top website development company, we code templates with lightning speeds and clean system controllers.",
+      benefits: ["Highly indexed web layouts", "Robust secure database integrations", "Clean object-oriented templates"]
     },
     { 
       icon: <Smartphone className="w-8 h-8 text-indigo-500" />, 
-      title: "E-Commerce Development", 
-      desc: "Scale your revenue with custom e-commerce dashboards. Fully responsive shopping carts, payment logs, and invoice tracking loops.",
+      title: "Mobile App Development", 
+      desc: "Engineered secure, high-performance, and responsive mobile application architectures for iOS and Android platforms.",
+      benefits: ["Cross-platform Flutter / React Native", "Offline-first capability integration", "Smooth App Store & Google Play launch"]
+    },
+    { 
+      icon: <Laptop className="w-8 h-8 text-[#0a66ff]" />, 
+      title: "E-commerce Website Development", 
+      desc: "Scale your commerce revenue with custom e-commerce web development. Fully responsive shopping carts, secure checkout flows, and payment gateway capture.",
       benefits: ["Secure automated credit capture", "Interactive product search index", "Bulk order fulfillment tables"]
     },
     { 
-      icon: <RefreshCw className="w-8 h-8 text-amber-500" />, 
-      title: "Website Redesign", 
-      desc: "Breathe new life into aging designs, shifting slowly to modern performance standards, fluid margins, and responsive components.",
-      benefits: ["Lighthouse speed boost up to 90%", "Optimized desktop-to-mobile shift", "Refreshed typography pairings"]
-    },
-    { 
       icon: <Search className="w-8 h-8 text-[#4DA3FF]" />, 
-      title: "SEO Optimization", 
+      title: "SEO Services", 
       desc: "Get discovered first on Google. Semantic JSON-LD schema layouts, rich XML sitemaps, meta descriptions, and rapid keyword indexings.",
       benefits: ["Higher organic lead inquiries", "Accelerated site crawlings", "Micro-structured Local Schema logs"]
+    },
+    { 
+      icon: <BarChart3 className="w-8 h-8 text-amber-500" />, 
+      title: "Digital Marketing Agency", 
+      desc: "Our full-service digital marketing agency solutions will boost your corporate presence through paid campaigns, brand strategies, and growth tracking.",
+      benefits: ["High return on ad spend (ROAS)", "Comprehensive brand tracking reports", "Lead-generating search engine funnels"]
     }
   ];
 
@@ -175,7 +260,7 @@ export default function FrontendWebsite({
       {/* Sub navigation for website pages inside the app */}
       <div className="bg-slate-50 border-y border-slate-100 py-2 sticky top-16 z-30 overflow-x-auto scrollbar-none">
         <div className="max-w-7xl mx-auto px-4 flex space-x-1 sm:space-x-2 text-sm font-medium">
-          {["home", "services", "portfolio", "pricing", "audit", "quote", "about", "contact"].map((tab) => (
+          {["home", "services", "portfolio", "pricing", "blogs", "contact"].map((tab) => (
             <button
               key={tab}
               onClick={() => {
@@ -184,12 +269,12 @@ export default function FrontendWebsite({
                 setQuoteReport(null);
               }}
               className={`px-3 py-1.5 rounded-full capitalize whitespace-nowrap transition-colors duration-200 ${
-                activeSubTab === tab 
+                (activeSubTab === tab || (tab === "pricing" && activeSubTab === "quote") || (tab === "contact" && activeSubTab === "about"))
                   ? "bg-[#0A66FF] text-white" 
                   : "text-slate-600 hover:bg-slate-200 hover:text-slate-900"
               }`}
             >
-              {tab === "audit" ? "🔍 Website Audit" : tab === "quote" ? "📊 Price Quote" : tab}
+              {tab === "pricing" ? "💳 Plans & Quote" : tab === "blogs" ? "📰 Blogs" : tab === "contact" ? "✉️ About & Contact" : tab}
             </button>
           ))}
         </div>
@@ -206,11 +291,11 @@ export default function FrontendWebsite({
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-300 border border-blue-400/20">
                   <Star className="w-3.5 h-3.5 fill-blue-400" /> Leading Digital Transformation Agency
                 </span>
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-none text-white">
-                  We Build Websites That <span className="text-[#4DA3FF]">Grow Your Business</span>
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-white">
+                  Professional <span className="text-[#4DA3FF]">Website Development Company</span> in India
                 </h1>
-                <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0">
-                  From stunning designs to powerful functionalities, we create premium digital experiences that capture attention, convert leads, and accelerate commercial growth.
+                <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                  WebNest is a premier website development company in India, offering custom web development services, professional website designer assets, mobile app development, E-commerce website development, and digital marketing agency solutions to scale businesses organic traffic.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
                   <button 
@@ -457,7 +542,7 @@ export default function FrontendWebsite({
       )}
 
       {/* 4. PRICING VIEW */}
-      {activeSubTab === "pricing" && (
+      {(activeSubTab === "pricing" || activeSubTab === "quote") && (
         <section className="py-16 bg-slate-50">
           <div className="max-w-7xl mx-auto px-4">
             <div className="text-center space-y-4 max-w-3xl mx-auto mb-16">
@@ -525,7 +610,11 @@ export default function FrontendWebsite({
                   <button 
                     onClick={() => {
                       setQuoteType(pkg.name);
-                      setActiveSubTab("quote");
+                      setActiveSubTab("pricing");
+                      setTimeout(() => {
+                        const el = document.getElementById("estimator-section");
+                        if (el) el.scrollIntoView({ behavior: "smooth" });
+                      }, 100);
                     }}
                     className={`w-full py-2.5 rounded font-semibold text-xs text-center transition ${
                       pkg.popular 
@@ -545,7 +634,13 @@ export default function FrontendWebsite({
                 <p className="text-sm text-slate-600">Answer 4 quick questions about your project scope to calculate an estimate and download a complete quotation.</p>
               </div>
               <button 
-                onClick={() => setActiveSubTab("quote")}
+                onClick={() => {
+                  setActiveSubTab("pricing");
+                  setTimeout(() => {
+                    const el = document.getElementById("estimator-section");
+                    if (el) el.scrollIntoView({ behavior: "smooth" });
+                  }, 100);
+                }}
                 className="px-5 py-3 bg-[#0A66FF] text-white hover:bg-opacity-90 font-semibold text-xs rounded uppercase tracking-wider whitespace-nowrap grow-0 shrink-0"
               >
                 Launch Price Estimator →
@@ -739,8 +834,8 @@ export default function FrontendWebsite({
       )}
 
       {/* 6. INSTANT QUOTE GENERATOR VIEW */}
-      {activeSubTab === "quote" && (
-        <section className="py-12 max-w-4xl mx-auto px-4">
+      {(activeSubTab === "pricing" || activeSubTab === "quote") && (
+        <section id="estimator-section" className="py-12 max-w-4xl mx-auto px-4 border-t border-slate-100 mt-12 scroll-mt-24">
           <div className="text-center space-y-3 mb-8">
             <span className="text-[#0A66FF] uppercase tracking-widest text-xs font-bold font-mono">Rate Estimations</span>
             <h2 className="text-3xl font-bold text-slate-900">Instant Estimate Builder</h2>
@@ -957,7 +1052,7 @@ export default function FrontendWebsite({
       )}
 
       {/* 7. ABOUT VIEW */}
-      {activeSubTab === "about" && (
+      {(activeSubTab === "contact" || activeSubTab === "about") && (
         <section className="py-16 max-w-5xl mx-auto px-4 space-y-16">
           <div className="text-center space-y-6 max-w-3xl mx-auto py-4 flex flex-col items-center">
             <span className="text-[#0A66FF] uppercase tracking-widest text-xs font-bold">Who We Are</span>
@@ -998,8 +1093,196 @@ export default function FrontendWebsite({
         </section>
       )}
 
+      {/* 7.5 BLOGS VIEW */}
+      {activeSubTab === "blogs" && (
+        <section className="py-16 max-w-7xl mx-auto px-4">
+          <div className="text-center space-y-4 max-w-3xl mx-auto mb-12">
+            <span className="text-[#0A66FF] uppercase tracking-widest text-xs font-bold font-mono">Expert Insights</span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">Articles & Digital Strategies</h2>
+            <p className="text-slate-600 leading-relaxed">
+              Explore the latest insights on website development cost in India, small business web designer strategies, search engine optimizations, and digital marketing trends.
+            </p>
+          </div>
+
+          {/* Search and Category Filters */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-between items-center mb-10 pb-6 border-b border-slate-100">
+            <div className="relative w-full sm:max-w-xs">
+              <Search className="absolute left-3 top-3.5 w-4 h-4 text-slate-400" />
+              <input 
+                type="text"
+                placeholder="Search articles..."
+                value={blogSearchQuery}
+                onChange={(e) => setBlogSearchQuery(e.target.value)}
+                className="w-full bg-slate-50 border border-slate-200 focus:border-[#0A66FF] rounded-lg pl-9 pr-4 py-2.5 text-sm outline-none transition animate-none"
+              />
+            </div>
+            <div className="flex gap-2 overflow-x-auto w-full sm:w-auto scrollbar-none pb-1">
+              {["All", "Website Design", "Website Development Services", "SEO Services", "Digital Marketing"].map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setBlogCategoryFilter(cat)}
+                  className={`px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition ${
+                    blogCategoryFilter === cat 
+                      ? "bg-[#0A66FF] text-white" 
+                      : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Blog Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {blogPosts
+              .filter(post => {
+                const matchesSearch = post.title.toLowerCase().includes(blogSearchQuery.toLowerCase()) || 
+                                     post.excerpt.toLowerCase().includes(blogSearchQuery.toLowerCase()) ||
+                                     post.keyword.toLowerCase().includes(blogSearchQuery.toLowerCase());
+                const matchesCat = blogCategoryFilter === "All" || post.category === blogCategoryFilter;
+                return matchesSearch && matchesCat;
+              })
+              .map((post) => (
+                <div 
+                  key={post.id} 
+                  onClick={() => setSelectedBlogPost(post)}
+                  className="bg-white border border-slate-100 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition duration-300 flex flex-col justify-between cursor-pointer group"
+                >
+                  <div>
+                    {/* Visual icon container representing article */}
+                    <div className="h-48 bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center p-6 border-b border-slate-50 group-hover:from-blue-100/60 group-hover:to-indigo-100/60 transition">
+                      <BookOpen className="w-12 h-12 text-[#0A66FF]/60 group-hover:scale-110 transition" />
+                    </div>
+                    <div className="p-6 space-y-3">
+                      <div className="flex items-center gap-3 text-[10px] font-mono text-slate-400">
+                        <span className="bg-blue-50 text-[#0A66FF] px-2 py-0.5 rounded-full font-bold">{post.category}</span>
+                        <span>{post.date}</span>
+                        <span>&bull; {post.readTime}</span>
+                      </div>
+                      <h3 className="text-lg font-bold text-slate-900 group-hover:text-[#0A66FF] transition leading-snug">
+                        {post.title}
+                      </h3>
+                      <p className="text-xs text-slate-500 leading-relaxed line-clamp-3">
+                        {post.excerpt}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="px-6 pb-6 pt-3 border-t border-slate-50 flex justify-between items-center text-xs font-semibold text-[#0A66FF]">
+                    <span>Read Full Article &rarr;</span>
+                    <span className="text-[10px] text-slate-400 font-normal font-mono">By {post.author.split(",")[0]}</span>
+                  </div>
+                </div>
+              ))}
+          </div>
+
+          {/* Empty state */}
+          {blogPosts.filter(post => {
+            const matchesSearch = post.title.toLowerCase().includes(blogSearchQuery.toLowerCase()) || 
+                                 post.excerpt.toLowerCase().includes(blogSearchQuery.toLowerCase()) ||
+                                 post.keyword.toLowerCase().includes(blogSearchQuery.toLowerCase());
+            const matchesCat = blogCategoryFilter === "All" || post.category === blogCategoryFilter;
+            return matchesSearch && matchesCat;
+          }).length === 0 && (
+            <div className="text-center py-16 space-y-2 border border-dashed border-slate-200 rounded-xl">
+              <HelpCircle className="w-8 h-8 text-slate-300 mx-auto" />
+              <p className="text-sm font-semibold text-slate-600">No articles match your search criteria.</p>
+              <button 
+                onClick={() => { setBlogSearchQuery(""); setBlogCategoryFilter("All"); }}
+                className="text-xs text-[#0A66FF] font-bold hover:underline"
+              >
+                Reset Search Filters
+              </button>
+            </div>
+          )}
+        </section>
+      )}
+
+      {/* Blog Article Detail Dialog Modal */}
+      {selectedBlogPost && (
+        <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl max-w-3xl w-full max-h-[85vh] overflow-y-auto shadow-2xl p-6 sm:p-8 space-y-6 relative">
+            {/* Close Button */}
+            <button 
+              onClick={() => setSelectedBlogPost(null)}
+              className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-100 transition"
+              aria-label="Close modal"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Header info */}
+            <div className="space-y-3 pt-2">
+              <div className="flex items-center gap-3 text-xs font-mono text-slate-400">
+                <span className="bg-blue-50 text-[#0A66FF] px-2 py-0.5 rounded-full font-bold">{selectedBlogPost.category}</span>
+                <span>{selectedBlogPost.date}</span>
+                <span>&bull; {selectedBlogPost.readTime}</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight">
+                {selectedBlogPost.title}
+              </h2>
+              <div className="flex items-center gap-2 text-xs text-slate-500 border-b border-slate-100 pb-4">
+                <UserCheck className="w-4 h-4 text-emerald-500" />
+                <span>Written by <strong className="font-semibold text-slate-800">{selectedBlogPost.author}</strong></span>
+              </div>
+            </div>
+
+            {/* Rendered Body Content */}
+            <div className="prose prose-slate max-w-none">
+              {(() => {
+                return selectedBlogPost.content.split("\n").map((line: string, idx: number) => {
+                  const trimmed = line.trim();
+                  if (!trimmed) return <div key={idx} className="h-4" />;
+                  if (trimmed.startsWith("### ")) {
+                    return <h3 key={idx} className="text-xl font-bold text-slate-900 mt-6 mb-3 border-b border-slate-100 pb-2">{trimmed.slice(4)}</h3>;
+                  }
+                  if (trimmed.startsWith("#### ")) {
+                    return <h4 key={idx} className="text-base font-bold text-slate-800 mt-4 mb-2">{trimmed.slice(5)}</h4>;
+                  }
+                  if (trimmed.startsWith("* ")) {
+                    const parts = trimmed.slice(2).split("**");
+                    return (
+                      <li key={idx} className="list-disc list-inside ml-4 text-sm text-slate-600 leading-relaxed py-0.5">
+                        {parts.map((p, pIdx) => pIdx % 2 === 1 ? <strong key={pIdx} className="font-bold text-slate-900">{p}</strong> : p)}
+                      </li>
+                    );
+                  }
+                  const parts = trimmed.split("**");
+                  return (
+                    <p key={idx} className="text-sm text-slate-600 leading-relaxed mb-3">
+                      {parts.map((p, pIdx) => pIdx % 2 === 1 ? <strong key={pIdx} className="font-bold text-slate-900">{p}</strong> : p)}
+                    </p>
+                  );
+                });
+              })()}
+            </div>
+
+            {/* Footer buttons */}
+            <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row justify-between items-center gap-4">
+              <p className="text-xs text-slate-400">
+                Targeting search query: <code className="bg-slate-50 px-2 py-1 rounded border border-slate-100 text-slate-600">{selectedBlogPost.keyword}</code>
+              </p>
+              <div className="flex gap-2">
+                <button 
+                  onClick={() => setSelectedBlogPost(null)}
+                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded transition"
+                >
+                  Close Article
+                </button>
+                <button 
+                  onClick={() => { setSelectedBlogPost(null); setActiveSubTab("contact"); }}
+                  className="px-4 py-2 bg-[#0A66FF] hover:bg-[#001B5E] text-white text-xs font-bold rounded transition shadow-sm"
+                >
+                  Discuss Project
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* 8. CONTACT VIEW */}
-      {activeSubTab === "contact" && (
+      {(activeSubTab === "contact" || activeSubTab === "about") && (
         <section className="py-16 bg-slate-50">
           <div className="max-w-6xl mx-auto px-4">
             <div className="text-center space-y-4 max-w-3xl mx-auto mb-16">
@@ -1156,3 +1439,179 @@ export default function FrontendWebsite({
     </div>
   );
 }
+
+const blogPosts = [
+  {
+    id: "b1",
+    title: "Website Development Cost in India: A Complete 2026 Guide",
+    keyword: "Website Development Cost in India",
+    excerpt: "How much does it cost to build a business website, e-commerce storefront, or custom SaaS web portal in India? We break down prices, hidden fees, and developer rates.",
+    category: "Website Development Services",
+    date: "June 25, 2026",
+    readTime: "6 min read",
+    author: "Siddharth Roy, Chief Tech Officer",
+    content: `
+### Understanding Website Development Cost in India
+
+Are you planning to build a web presence and wondering about the **Website Development Cost in India**? You are not alone. As businesses migrate to digital-first models, understanding the financial parameters of establishing a website is crucial. In 2026, the cost of custom web design and development services varies significantly based on complexity, technology stacks, and functional integrations.
+
+Here is a comprehensive breakdown of typical development budgets across India:
+
+#### 1. Starter & Business Websites (₹15,000 - ₹50,000)
+Ideal for small businesses, startups, and service providers who need a clean, responsive web presentation to showcase their credibility.
+* **Tech Stack**: HTML5, Tailwind CSS, WordPress, or lightweight React.
+* **Pages**: 5 to 10 standard pages (Home, About, Services, Contact, Blog).
+* **Features**: Contact forms, Google Maps, social links, and basic SEO meta tags.
+
+#### 2. E-commerce Website Development (₹45,000 - ₹1,50,000+)
+Tailored for retail and grocery businesses seeking online sales portals.
+* **Tech Stack**: WooCommerce, Shopify, or custom React + Node.js.
+* **Features**: Dynamic cart systems, secure payment gateway integrations (Razorpay, Stripe), order tracking dashboards, and tax billing calculators.
+
+#### 3. Custom Enterprise Portals & SaaS Systems (₹1,50,000 - ₹5,00,000+)
+Built for companies with heavy database requirements, customer portals, or interactive tools (e.g., Wealth Platforms, CRM dashboards, or AI Diagnostic utilities).
+* **Tech Stack**: React, Node.js, Express, PostgreSQL, D3.js.
+
+#### What Factors Influence the Price?
+* **Design Customization**: Off-the-shelf templates are cheaper, but custom designs crafted in Figma by a professional **Website Designer** are essential for brand differentiation.
+* **Mobile Responsiveness**: Ensuring flawless viewing across mobile, tablet, and ultra-wide desktop monitors.
+* **Advanced Integrations**: Live chat support systems, secure client document portals, or real-time progress trackers.
+
+#### Why Choose WebNest for Your Development Needs?
+WebNest, a leading **Website Development Company in India**, offers transparent pricing and milestone-based invoicing. We ensure your web asset is highly optimized, fast (achieving PageSpeed scores above 90), and fully configured for search rankings with expert **SEO Services**.
+    `
+  },
+  {
+    id: "b2",
+    title: "Best Website Design for Small Businesses: Designing for Conversions",
+    keyword: "Best Website Design for Small Businesses",
+    excerpt: "Discover the key design elements that convert visitors into paying clients. High-contrast layouts, spacing, typography pairing, and visual hierarchies.",
+    category: "Website Design",
+    date: "June 24, 2026",
+    readTime: "5 min read",
+    author: "Aditi Sen, Senior UX Designer",
+    content: `
+### Crucial Factors in Best Website Design for Small Businesses
+
+A website should be more than a passive digital brochure. The **Best Website Design for Small Businesses** acts as a 24/7 sales representative, actively capturing leads, establishing brand trust, and converting traffic into customers. If your website has high traffic but low conversions, it's time to re-evaluate your design aesthetics.
+
+#### 1. First Impressions & Desktop-First Precision
+Studies show that users form an opinion about your brand within **0.05 seconds** of loading your page.
+* **The Hero Section**: The upper fold of your page must clearly communicate what you do, who you serve, and what immediate action the user should take.
+* **White Space**: Generous margins and negative space create clean visual hierarchies, preventing cognitive overload and highlighting key CTA (Call-to-Action) buttons.
+
+#### 2. Mobile-First Optimization
+Over **60% of global web traffic** comes from mobile screens. A responsive grid layout that adapts seamlessly to varying viewports is non-negotiable. Buttons must have a minimum touch target size of 44px to accommodate touch navigation.
+
+#### 3. Visual Credibility and Font Pairings
+Using clean display fonts (like Inter or Space Grotesk) paired with structured, high-contrast text establishes high readability. Combining actual testimonials with professional logos instead of stock graphics builds trust immediately.
+
+#### The Golden Rules of High-Converting Web Design:
+* **One Clear Goal Per Page**: Whether requesting a price estimate or filling out a contact form, keep your CTAs prominent and unified.
+* **Fast Page Loading**: If your page takes longer than 3 seconds to load, over 40% of visitors will bounce.
+* **SEO-Friendly Landings**: Ensure your design contains semantic HTML landmarks (Header, Nav, Main, Footer) to make it easy for Google crawler bots to parse your content.
+
+Partner with an experienced **Website Designer** at WebNest to elevate your small business into an industry leader. We build modern, conversion-focused websites that look stunning and perform flawlessly.
+    `
+  },
+  {
+    id: "b3",
+    title: "10 Actionable SEO Tips for Business Websites to Boost Search Rankings",
+    keyword: "SEO Tips for Business Websites",
+    excerpt: "Uncover technical SEO strategies, semantic structures, JSON-LD schema markups, and PageSpeed optimizations to boost your organic traffic.",
+    category: "SEO Services",
+    date: "June 20, 2026",
+    readTime: "7 min read",
+    author: "Aman Gupta, SEO Strategist",
+    content: `
+### Essential SEO Tips for Business Websites
+
+To succeed in the highly competitive digital landscape, having a stunning website is only half the battle. Your audience must be able to find you on search engines. These technical **SEO Tips for Business Websites** will help you optimize your web presence to rank higher on Google and drive valuable organic search traffic.
+
+#### 1. Place Primary Keywords Strategically
+Do not engage in keyword stuffing, which Google's algorithms penalize. Instead, weave search terms naturally inside:
+* **The H1 Main Heading**: Make sure your primary page title clearly highlights your focus (e.g., "Professional Website Development Company").
+* **The URL Path**: Use clean, SEO-friendly paths like \`/seo-services\` or \`/mobile-app-development\`.
+* **Meta Title & Description**: Keep titles under 60 characters and descriptions under 160 characters.
+
+#### 2. Integrate Rich Schema Markup (JSON-LD)
+Schema markup helps Google search bots understand the context of your page. Adding \`LocalBusiness\` or \`ProfessionalService\` schema tags displays valuable metadata, such as your location, phone number, and reviews, directly on search results.
+
+#### 3. Prioritize Site Loading Speed
+Page speed is a major Google ranking factor. Aim for a **PageSpeed Insights score above 90** by:
+* Compressing all images and utilizing responsive web formats (like WebP or SVG).
+* Minifying HTML, CSS, and JS bundle packages.
+* Eliminating render-blocking scripts.
+
+#### 4. Configure Sitemap.xml and Robots.txt
+* **Sitemap.xml**: Serves as a clear directory for Google bots, ensuring all your key pages are discovered and indexed.
+* **Robots.txt**: Tells crawlers which sections of your site to scan and which private areas (like administrative client dashboards) to avoid.
+
+Need help implementing advanced search engine optimization? Our expert **SEO Services** and **Digital Marketing Agency** packages at WebNest are customized to elevate your brand's authority, drive leads, and maximize your digital footprint.
+    `
+  },
+  {
+    id: "b4",
+    title: "Why Every Business Needs a Website in the Digital Era",
+    keyword: "Why Every Business Needs a Website",
+    excerpt: "Building credibility, capturing 24/7 client leads, and expanding your reach. Why relying solely on social media is a risk for your brand.",
+    category: "Digital Marketing",
+    date: "June 18, 2026",
+    readTime: "5 min read",
+    author: "Vikram Sen, Marketing Director",
+    content: `
+### The Definitive Answer to: Why Every Business Needs a Website
+
+In today's digital-first economy, the question is no longer "should we have a web presence?" but rather "how fast can we build an optimized website?" Here is the definitive answer to **Why Every Business Needs a Website** to survive, thrive, and scale in 2026.
+
+#### 1. Establishes Instant Credibility
+Over **84% of consumers** believe having a website makes your business more professional and credible than simply having a social media profile. Your website acts as the physical storefront of your digital brand, showcasing your achievements, case studies, and corporate settings.
+
+#### 2. Capture Lead Inquiries 24/7
+A physical office has opening hours, but a website is always online. With interactive inquiry forms, instant pricing estimate tools, and AI diagnostics assistants, you can capture qualified consumer leads while you sleep.
+
+#### 3. Complete Ownership of Your Audience
+Relying solely on social media platforms (like Facebook or Instagram) places your business at risk of sudden algorithm shifts, policy updates, or account suspensions. Your website is a digital asset that you completely own and control.
+
+#### 4. Expand Beyond Local Boundaries
+Whether your office is based in Durgapur, Kolkata, or Bangalore, an optimized website allows you to attract corporate partners internationally, scaling your small business into an enterprise agency.
+
+At WebNest, we help brands build secure, scalable, and highly optimized platforms. As an established **Website Development Company**, we combine striking aesthetics with modern database structures to ensure your brand stands out.
+    `
+  },
+  {
+    id: "b5",
+    title: "How to Rank a Website on Google: The Ultimate SEO Roadmap",
+    keyword: "How to Rank a Website on Google",
+    excerpt: "A comprehensive checklist from keyword mapping and sitemap submission, to rapid mobile loading speed and local citation building.",
+    category: "SEO Services",
+    date: "June 12, 2026",
+    readTime: "8 min read",
+    author: "Sanjay Dutta, Head of Content",
+    content: `
+### A Step-by-Step Guide on How to Rank a Website on Google
+
+Ranking on the first page of Google is the ultimate goal of any modern digital marketing strategy. To achieve this, your website must meet both user standards and search engine crawlers' strict criteria. This blueprint outlines the exact steps for **How to Rank a Website on Google**.
+
+#### Step 1: Conduct Thorough Keyword Mapping
+Identify what your target audience is actively searching for. Map high-intent keywords like "Web Development Services", "E-commerce Website Development", and "Mobile App Development" directly into your landing pages and services catalogs.
+
+#### Step 2: Craft Compelling Meta Titles & Descriptions
+Your meta title is the first thing a user sees in search results. Ensure it is click-worthy, includes your primary search query, and accurately represents your brand.
+
+#### Step 3: Implement Seamless Schema Markups
+Add structured JSON-LD data to tell Google search bots exactly what your business is. This increases the chances of appearing in rich search snippets, FAQ accordions, and local map packs.
+
+#### Step 4: Maximize Speed & Performance
+Google favors websites that load within milliseconds. Implement lazy-loading, use vector SVG files for logos (like our WebNest 3D folded mark), and minimize main thread execution.
+
+#### Step 5: Secure the Site with SSL (HTTPS)
+Google explicitly flags non-secure websites, which instantly hurts user trust and organic search rankings. Make sure your SSL certificate is correctly configured.
+
+#### Step 6: Build High-Quality Backlinks
+Earn links from trusted publications, directories, and industry portals to establish your domain authority.
+
+By following this strategic roadmap, you will significantly improve your domain authority and organic leads. Let WebNest assist you—our professional **SEO Services** and full-service **Digital Marketing Agency** solutions will help you conquer search results!
+    `
+  }
+];
