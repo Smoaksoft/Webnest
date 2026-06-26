@@ -4,7 +4,7 @@ import {
   Globe, Laptop, Code, Smartphone, RefreshCw, Search, ShieldCheck, 
   ArrowRight, FileText, HelpCircle, Check, MapPin, Phone, Mail, 
   Send, AlertCircle, BarChart3, Star, Download, RotateCcw,
-  BookOpen, Calendar, UserCheck, TrendingUp, X
+  BookOpen, Calendar, UserCheck, TrendingUp, X, Clock
 } from "lucide-react";
 import { PortfolioProject, Testimonial, AuditReport, Quotation, AgencySettings } from "../types";
 
@@ -282,75 +282,108 @@ export default function FrontendWebsite({
 
       {/* 1. HOME VIEW */}
       {activeSubTab === "home" && (
-        <div>
+        <div className="space-y-24 pb-20">
           {/* Hero Section */}
-          <section className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-[#001B5E] to-slate-900 text-white py-20 lg:py-32">
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(77,163,255,0.15),transparent_40%)]"></div>
+          <section className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-[#001446] to-slate-900 text-white py-20 lg:py-28">
+            {/* Ambient glows */}
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+            <div className="absolute bottom-0 left-12 w-[350px] h-[350px] bg-indigo-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+            
             <div className="max-w-7xl mx-auto px-4 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-              <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-300 border border-blue-400/20">
-                  <Star className="w-3.5 h-3.5 fill-blue-400" /> Leading Digital Transformation Agency
+              <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-300 border border-blue-400/20">
+                  <Star className="w-3.5 h-3.5 fill-blue-400 text-blue-400" /> Rated 4.9/5 on Google Reviews
                 </span>
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-white">
-                  Professional <span className="text-[#4DA3FF]">Website Development Company</span> in India
+                
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white">
+                  Helping Businesses <span className="text-[#4DA3FF] block sm:inline">Launch Faster,</span> Rank Higher & Convert More Customers
                 </h1>
-                <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                  WebNest is a premier website development company in India, offering custom web development services, professional website designer assets, mobile app development, E-commerce website development, and digital marketing agency solutions to scale businesses organic traffic.
+                
+                <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
+                  Premium Websites & AI-Powered Digital Solutions That Help Businesses Grow Faster. We combine award-winning custom UI designs with search-engine-first, high-performance clean code.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                
+                {/* Responsive Action Grid */}
+                <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start pt-2">
                   <button 
-                    onClick={() => setActiveSubTab("quote")}
-                    className="px-6 py-3.5 bg-[#0A66FF] hover:bg-opacity-90 font-medium rounded-lg shadow-lg flex items-center justify-center gap-2 transition"
+                    onClick={() => {
+                      setActiveSubTab("contact");
+                      setTimeout(() => {
+                        const el = document.getElementById("consultation-section");
+                        if (el) el.scrollIntoView({ behavior: "smooth" });
+                      }, 150);
+                    }}
+                    className="px-6 py-3.5 bg-[#0A66FF] hover:bg-blue-600 font-bold rounded-lg shadow-lg flex items-center justify-center gap-2 transition duration-200"
                   >
-                    Get Started / Request Quote <ArrowRight className="w-4 h-4" />
+                    <Calendar className="w-4 h-4" /> Book Free Consultation
                   </button>
                   <button 
-                    onClick={() => setActiveSubTab("audit")}
-                    className="px-6 py-3.5 bg-white/10 hover:bg-white/15 border border-white/20 font-medium rounded-lg flex items-center justify-center gap-2 transition"
+                    onClick={() => {
+                      setActiveSubTab("pricing");
+                      setTimeout(() => {
+                        const el = document.getElementById("estimator-section");
+                        if (el) el.scrollIntoView({ behavior: "smooth" });
+                      }, 150);
+                    }}
+                    className="px-6 py-3.5 bg-white/10 hover:bg-white/15 border border-white/20 font-bold rounded-lg flex items-center justify-center gap-2 transition duration-200 text-white"
                   >
-                    Free AI Website Audit <Search className="w-4 h-4" />
+                    Get Free Website Quote <ArrowRight className="w-4 h-4" />
+                  </button>
+                  <button 
+                    onClick={() => setActiveSubTab("portfolio")}
+                    className="px-6 py-3.5 bg-transparent hover:bg-white/5 border border-transparent hover:border-white/10 font-bold rounded-lg flex items-center justify-center gap-2 transition duration-200 text-slate-300 hover:text-white"
+                  >
+                    View Our Work
                   </button>
                 </div>
+
+                {/* Micro Stats Row */}
                 <div className="grid grid-cols-3 gap-6 pt-8 border-t border-white/10 max-w-md mx-auto lg:mx-0 text-center lg:text-left">
                   <div>
-                    <h3 className="text-2xl font-bold text-white">100%</h3>
-                    <p className="text-xs text-slate-400">Custom Code / SEO Ready</p>
+                    <h3 className="text-2xl font-extrabold text-white">100%</h3>
+                    <p className="text-xs text-slate-400 mt-1">Custom Development</p>
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold text-white">50+</h3>
-                    <p className="text-xs text-slate-400">Projects Delivered</p>
+                    <h3 className="text-2xl font-extrabold text-white">50+</h3>
+                    <p className="text-xs text-slate-400 mt-1">Succeeding Clients</p>
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold text-[#4DA3FF]">98%</h3>
-                    <p className="text-xs text-slate-400">Success Rating</p>
+                    <h3 className="text-2xl font-extrabold text-[#4DA3FF]">2-Hour</h3>
+                    <p className="text-xs text-slate-400 mt-1">Response Guarantee</p>
                   </div>
                 </div>
               </div>
+              
               <div className="lg:col-span-5 relative mt-6 lg:mt-0">
                 <div className="absolute inset-0 bg-blue-500 rounded-2xl filter blur-2xl opacity-10"></div>
-                <div className="relative bg-slate-900/60 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl space-y-6">
+                <div className="relative bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 sm:p-8 shadow-2xl space-y-6">
                   <div className="flex items-center justify-between border-b border-white/10 pb-4">
-                    <span className="font-mono text-xs text-blue-400"># DIAGNOSTIC ENGINE v3.5</span>
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span className="font-mono text-xs text-blue-400 flex items-center gap-1.5 font-semibold">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                      AI DIAGNOSTIC BENCHMARK
+                    </span>
+                    <span className="text-[10px] text-slate-400">v3.5 PRO</span>
                   </div>
+                  
                   <div className="space-y-4">
-                    <h3 className="text-lg font-semibold text-white">Is your current website losing clients?</h3>
-                    <p className="text-xs text-slate-400">
-                      Enter your address below. Our AI-driven diagnostic engine will inspect performance configurations and outline instant fixes.
+                    <h3 className="text-lg font-bold text-white">Is your current website losing clients?</h3>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      Enter your live URL. Our diagnostic engine compiles a complete, manual follow-up report on search engine indexability, speed bottlenecks, and custom UI improvements.
                     </p>
-                    <div className="space-y-2">
+                    
+                    <div className="space-y-3 pt-2">
                       <input 
                         type="url" 
-                        placeholder="https://yourwebsite.com" 
+                        placeholder="https://yourbusiness.com" 
                         value={auditUrl}
                         onChange={(e) => setAuditUrl(e.target.value)}
-                        className="w-full bg-slate-950 border border-white/15 focus:border-[#0A66FF] text-white text-sm rounded-lg px-4 py-3 placeholder:text-slate-500 outline-none"
+                        className="w-full bg-slate-950 border border-white/15 focus:border-[#0A66FF] text-white text-sm rounded-lg px-4 py-3 placeholder:text-slate-500 outline-none transition"
                       />
                       <button 
                         onClick={() => setActiveSubTab("audit")}
-                        className="w-full px-4 py-3 bg-[#0A66FF] hover:bg-[#0A66FF]/95 transition active:scale-95 text-xs font-semibold text-white rounded-lg uppercase tracking-wider"
+                        className="w-full px-4 py-3 bg-[#0A66FF] hover:bg-blue-600 transition text-xs font-bold text-white rounded-lg uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg"
                       >
-                        Analyze Site Now
+                        <Search className="w-3.5 h-3.5" /> Scan & Analyze Site Now
                       </button>
                     </div>
                   </div>
@@ -359,83 +392,256 @@ export default function FrontendWebsite({
             </div>
           </section>
 
-          {/* Core Corporate Process */}
-          <section className="py-16 max-w-7xl mx-auto px-4">
-            <div className="text-center space-y-4 max-w-3xl mx-auto mb-16">
-              <span className="text-[#0A66FF] uppercase tracking-widest text-xs font-bold">Proven Architecture</span>
-              <h2 className="text-3xl font-bold tracking-tight text-slate-900">How We Ensure Your Growth</h2>
-              <p className="text-slate-600">Our seamless project lifecycle takes your corporate idea from early Figma designs to standard tested production code.</p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              {[
-                { step: "01", title: "Intake & Cost Estimate", desc: "Use our instant invoice and quote estimator to transparently draft exact scope sheets matching parameters." },
-                { step: "02", title: "Aesthetic Wireframing", desc: "We map modern graphics in customizable layout files, styling specific components to represent your brand." },
-                { step: "03", title: "Relational Coding", desc: "Construct codebases adhering to standard security practices - prepared SQL interfaces and XSS sanitizations." },
-                { step: "04", title: "Deployment Control", desc: "Boot site instances to Hostinger, local XAMPP, or dedicated virtual private servers with clean guides." }
-              ].map((proc, idx) => (
-                <div key={idx} className="relative bg-slate-50 border border-slate-100 rounded-xl p-6 hover:shadow-lg transition group">
-                  <div className="absolute top-4 right-4 text-4xl font-extrabold font-mono text-slate-200 group-hover:text-blue-100 transition-colors">
-                    {proc.step}
-                  </div>
-                  <h3 className="text-lg font-bold text-slate-900 mt-4 mb-2">{proc.title}</h3>
-                  <p className="text-sm text-slate-600">{proc.desc}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Quick Services Preview */}
-          <section className="bg-slate-50 py-16">
-            <div className="max-w-7xl mx-auto px-4">
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
-                <div>
-                  <span className="text-[#0A66FF] uppercase tracking-widest text-xs font-bold text-left">Our Capabilities</span>
-                  <h2 className="text-3xl font-bold text-slate-900 mt-2">Services Built For Conversions</h2>
-                </div>
-                <button 
-                  onClick={() => setActiveSubTab("services")}
-                  className="text-sm font-semibold text-[#0A66FF] hover:underline flex items-center gap-1.5"
-                >
-                  View All Detailed Services <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {servicesList.slice(0, 3).map((srv, idx) => (
-                  <div key={idx} className="bg-white border border-slate-100 rounded-xl p-6 shadow-sm hover:shadow-md transition">
-                    <div className="p-3 bg-blue-50 w-fit rounded-lg mb-4">{srv.icon}</div>
-                    <h3 className="text-lg font-bold text-slate-900 mb-2">{srv.title}</h3>
-                    <p className="text-sm text-slate-600 mb-4">{srv.desc}</p>
-                    <ul className="space-y-2">
-                      {srv.benefits.map((b, bIdx) => (
-                        <li key={bIdx} className="flex items-center gap-2 text-xs text-slate-700">
-                          <Check className="w-3.5 h-3.5 text-blue-500 shrink-0" /> {b}
-                        </li>
-                      ))}
-                    </ul>
+          {/* Technology Trust Showcase & Partner Badges */}
+          <section className="max-w-7xl mx-auto px-4 -mt-12 relative z-20">
+            <div className="bg-white rounded-2xl border border-slate-100 shadow-xl p-8 space-y-6 text-center">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">INTEGRATION ECOSYSTEMS & CREDIBILITY</span>
+              <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 opacity-70">
+                {[
+                  { name: "React", label: "React Web" },
+                  { name: "Next.js", label: "Next.js SPA" },
+                  { name: "WordPress", label: "WordPress Custom" },
+                  { name: "Razorpay", label: "Razorpay Native" },
+                  { name: "Stripe", label: "Stripe Global" },
+                  { name: "AWS", label: "AWS Cloud" },
+                  { name: "Firebase", label: "Firebase DB" }
+                ].map((logo, lIdx) => (
+                  <div key={lIdx} className="flex items-center gap-1.5 font-mono text-xs font-bold text-slate-600">
+                    <Code className="w-3.5 h-3.5 text-blue-500" /> {logo.name}
                   </div>
                 ))}
               </div>
             </div>
           </section>
 
-          {/* Elegant Statistics Banner */}
-          <section className="bg-white py-12 max-w-7xl mx-auto px-4 border-y border-slate-100">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              <div>
-                <h4 className="text-4xl font-extrabold text-[#0D215E]">50+</h4>
-                <p className="text-xs text-slate-500 mt-1 uppercase tracking-wider font-semibold">Active Websites Managed</p>
+          {/* Why Businesses Choose WebNest Section */}
+          <section className="max-w-7xl mx-auto px-4">
+            <div className="text-center space-y-4 max-w-3xl mx-auto mb-16">
+              <span className="text-[#0A66FF] uppercase tracking-widest text-xs font-bold font-mono">Uncompromising Values</span>
+              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">Why Businesses Choose WebNest</h2>
+              <p className="text-slate-600 text-sm">
+                Unlike freelancers or standard design templates, we engineer highly optimized digital systems built to grow.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                { 
+                  title: "100% Custom Coding & Figma", 
+                  desc: "We completely reject bloated pre-made templates and slow builder plugins. Your site is built clean from the ground up for elite rendering speeds.",
+                  badge: "SEO optimized"
+                },
+                { 
+                  title: "AI-Powered Performance Audits", 
+                  desc: "Every deployment goes through automated schema validators and responsive viewport benchmarks to ensure absolute compliance with Core Web Vitals.",
+                  badge: "High Tech"
+                },
+                { 
+                  title: "SEO-First Engineering Default", 
+                  desc: "We code using strict semantic HTML, complete structured schema markups, micro-data, and custom page meta-tags to help you rank on top organically.",
+                  badge: "Organic Growth"
+                },
+                { 
+                  title: "Lifetime Support & Warranties", 
+                  desc: "Your website gets covered under our signature post-launch maintenance warranty. No broken scripts, zero hosting downtime, and immediate fixes.",
+                  badge: "Full Security"
+                },
+                { 
+                  title: "Fast 10-Day Sprints", 
+                  desc: "Our highly-automated UI-to-code pipelines allow us to deploy custom e-commerce and corporate platforms in record turnaround times.",
+                  badge: "Agile Speed"
+                },
+                { 
+                  title: "Milestone-Based Billing", 
+                  desc: "Pay strictly as we meet deliverables. Zero initial surprises, full transparency with custom generated quotes, and downloadable digital invoice trails.",
+                  badge: "Transparent"
+                }
+              ].map((value, vIdx) => (
+                <div key={vIdx} className="bg-white border border-slate-100 rounded-xl p-8 hover:shadow-lg transition-all duration-300 relative group flex flex-col justify-between">
+                  <div>
+                    <span className="inline-block bg-blue-50 text-[#0A66FF] text-[9px] uppercase font-bold tracking-wider px-2 py-0.5 rounded mb-4">
+                      {value.badge}
+                    </span>
+                    <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-[#0A66FF] transition-colors">{value.title}</h3>
+                    <p className="text-xs text-slate-600 leading-relaxed font-light">{value.desc}</p>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-xs text-slate-400 mt-4 pt-4 border-t border-slate-50 font-mono font-medium">
+                    <ShieldCheck className="w-4 h-4 text-emerald-500" /> GUARANTEED OUTCOME
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Development Process Timeline */}
+          <section className="bg-slate-50 py-16">
+            <div className="max-w-7xl mx-auto px-4">
+              <div className="text-center space-y-4 max-w-3xl mx-auto mb-16">
+                <span className="text-[#0A66FF] uppercase tracking-widest text-xs font-bold font-mono">Proven Playbook</span>
+                <h2 className="text-3xl font-extrabold tracking-tight text-slate-900">How We Ensure Your Growth</h2>
+                <p className="text-slate-600 text-sm">We take your unique ideas from a secure Figma layout draft to polished, live-hosted product files.</p>
               </div>
-              <div>
-                <h4 className="text-4xl font-extrabold text-[#0A66FF]">$140K+</h4>
-                <p className="text-xs text-slate-500 mt-1 uppercase tracking-wider font-semibold">Revenue Generated for Clients</p>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                {[
+                  { step: "01", title: "Intake & Estimation", desc: "Calculate your exact project dimensions with our instant pricing builder to establish fully transparent bounds." },
+                  { step: "02", title: "Custom Wireframing", desc: "Our layout artists draft beautiful custom wireframes matching your exact branding and typography guidelines." },
+                  { step: "03", title: "Clean React & SEO Coding", desc: "Our engineering group builds high-performance codebases utilizing modern, light, responsive stacks." },
+                  { step: "04", title: "Secure Handover & Launch", desc: "We deploy directly to your selected hosts (Hostinger, AWS, GCP) accompanied by lifetime technical security guarantees." }
+                ].map((proc, idx) => (
+                  <div key={idx} className="relative bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition group">
+                    <div className="absolute top-4 right-4 text-4xl font-extrabold font-mono text-slate-100 group-hover:text-blue-100 transition-colors">
+                      {proc.step}
+                    </div>
+                    <div className="w-10 h-10 rounded-full bg-blue-50 text-[#0A66FF] flex items-center justify-center font-bold text-xs mb-4">
+                      {proc.step}
+                    </div>
+                    <h3 className="text-base font-bold text-slate-900 mb-2">{proc.title}</h3>
+                    <p className="text-xs text-slate-600 leading-relaxed font-light">{proc.desc}</p>
+                  </div>
+                ))}
               </div>
-              <div>
-                <h4 className="text-4xl font-extrabold text-blue-400">12ms</h4>
-                <p className="text-xs text-slate-500 mt-1 uppercase tracking-wider font-semibold">Average API Response time</p>
+            </div>
+          </section>
+
+          {/* Industries We Serve Section */}
+          <section className="max-w-7xl mx-auto px-4">
+            <div className="text-center space-y-4 max-w-3xl mx-auto mb-12">
+              <span className="text-[#0A66FF] uppercase tracking-widest text-xs font-bold font-mono">Expertise Verticals</span>
+              <h2 className="text-3xl font-extrabold text-slate-900">Industries We Serve</h2>
+              <p className="text-slate-600 text-sm">We construct dedicated online systems tailor-made for specific industry demands.</p>
+            </div>
+            
+            <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+              {[
+                { name: "E-Commerce & Retail", icon: <Globe className="w-5 h-5" /> },
+                { name: "Professional Services", icon: <ShieldCheck className="w-5 h-5" /> },
+                { name: "Real Estate & Housing", icon: <Laptop className="w-5 h-5" /> },
+                { name: "FinTech & Banking", icon: <BarChart3 className="w-5 h-5" /> },
+                { name: "Healthcare & Clinics", icon: <UserCheck className="w-5 h-5" /> },
+                { name: "Education & Academies", icon: <BookOpen className="w-5 h-5" /> }
+              ].map((ind, idx) => (
+                <div key={idx} className="bg-white border border-slate-100 rounded-xl p-6 text-center space-y-3 hover:border-blue-500/30 transition shadow-sm hover:shadow flex flex-col items-center justify-center">
+                  <div className="text-[#0A66FF] p-2.5 bg-blue-50 rounded-lg">{ind.icon}</div>
+                  <h3 className="text-xs font-bold text-slate-800 leading-snug">{ind.name}</h3>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Quick Services Preview with estimated pricing CTAs */}
+          <section className="bg-slate-50 py-16">
+            <div className="max-w-7xl mx-auto px-4">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
+                <div>
+                  <span className="text-[#0A66FF] uppercase tracking-widest text-xs font-bold text-left font-mono">Our Capabilities</span>
+                  <h2 className="text-3xl font-extrabold text-slate-900 mt-2">Conversion-Optimized Web Services</h2>
+                </div>
+                <button 
+                  onClick={() => setActiveSubTab("services")}
+                  className="text-xs font-bold text-[#0A66FF] hover:underline flex items-center gap-1.5 bg-white border border-slate-100 px-4 py-2 rounded-full shadow-sm hover:shadow transition"
+                >
+                  View All Detailed Services <ArrowRight className="w-3.5 h-3.5" />
+                </button>
               </div>
-              <div>
-                <h4 className="text-4xl font-extrabold text-emerald-500">22%</h4>
-                <p className="text-xs text-slate-500 mt-1 uppercase tracking-wider font-semibold">Average Lead Increase</p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {servicesList.slice(0, 3).map((srv, idx) => (
+                  <div key={idx} className="bg-white border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                      <div className="p-3 bg-blue-50 text-[#0A66FF] w-fit rounded-lg mb-6">{srv.icon}</div>
+                      <h3 className="text-lg font-bold text-slate-900 mb-2">{srv.title}</h3>
+                      <p className="text-xs text-slate-600 mb-6 leading-relaxed font-light">{srv.desc}</p>
+                      <ul className="space-y-2 border-t border-slate-50 pt-4 mb-6">
+                        {srv.benefits.map((b, bIdx) => (
+                          <li key={bIdx} className="flex items-center gap-2 text-xs text-slate-700">
+                            <Check className="w-3.5 h-3.5 text-blue-500 shrink-0" /> {b}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <button 
+                      onClick={() => {
+                        setQuoteType(srv.title.includes("E-Commerce") ? "E-Commerce Website" : srv.title.includes("Design") ? "Starter Website" : "Business Website");
+                        setActiveSubTab("pricing");
+                        setTimeout(() => {
+                          const el = document.getElementById("estimator-section");
+                          if (el) el.scrollIntoView({ behavior: "smooth" });
+                        }, 150);
+                      }}
+                      className="w-full text-center py-2.5 rounded-lg bg-slate-50 hover:bg-blue-50 text-slate-800 hover:text-[#0A66FF] text-xs font-bold transition"
+                    >
+                      Estimate Service Cost →
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Social Proof & Google Client Reviews Section */}
+          <section className="max-w-7xl mx-auto px-4">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+              <div className="lg:col-span-4 space-y-4 text-center lg:text-left">
+                <span className="text-[#0A66FF] uppercase tracking-widest text-xs font-bold font-mono">Client Testimonials</span>
+                <h2 className="text-3xl font-extrabold text-slate-900">What Our Partners Say</h2>
+                <p className="text-slate-600 text-sm font-light leading-relaxed">
+                  We are deeply committed to delivering pristine value to local businesses. Hear directly from founders and developers who trust WebNest.
+                </p>
+                <div className="bg-slate-50 border border-slate-100 rounded-xl p-6 space-y-2 inline-block w-full">
+                  <div className="flex justify-center lg:justify-start gap-1">
+                    {[1, 2, 3, 4, 5].map((s) => (
+                      <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                    ))}
+                  </div>
+                  <p className="text-sm font-bold text-slate-800">4.9 Out of 5.0 Rating</p>
+                  <p className="text-xs text-slate-500">Based on 50+ Verified Google Reviews</p>
+                </div>
+              </div>
+              
+              <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                {testimonials.filter(t => t.approved).slice(0, 4).map((t) => (
+                  <div key={t.id} className="bg-white border border-slate-100 p-6 rounded-2xl shadow-sm relative flex flex-col justify-between hover:shadow-md transition">
+                    <div className="space-y-4">
+                      <div className="flex gap-0.5">
+                        {[...Array(t.rating)].map((_, rIdx) => (
+                          <Star key={rIdx} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                        ))}
+                      </div>
+                      <p className="text-xs text-slate-600 italic leading-relaxed font-light">"{t.feedback}"</p>
+                    </div>
+                    <div className="flex items-center justify-between border-t border-slate-50 pt-4 mt-4">
+                      <div>
+                        <h4 className="text-xs font-bold text-slate-900">{t.name}</h4>
+                        <p className="text-[10px] text-slate-400 font-medium">{t.role}, {t.company}</p>
+                      </div>
+                      <span className="text-[10px] uppercase font-mono font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded flex items-center gap-1">
+                        <ShieldCheck className="w-3 h-3 text-emerald-500" /> Verified Review
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* High-Fidelity Statistics Grid Banner */}
+          <section className="bg-gradient-to-br from-[#001446] to-slate-950 py-16 text-white max-w-7xl mx-auto rounded-3xl shadow-xl px-8 relative overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(10,102,255,0.15),transparent_40%)] pointer-events-none"></div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center relative z-10">
+              <div className="space-y-1">
+                <h4 className="text-4xl sm:text-5xl font-extrabold text-white">50+</h4>
+                <p className="text-xs text-slate-400 font-mono tracking-wider uppercase">Websites Delivered</p>
+              </div>
+              <div className="space-y-1">
+                <h4 className="text-4xl sm:text-5xl font-extrabold text-[#4DA3FF]">5+ Years</h4>
+                <p className="text-xs text-slate-400 font-mono tracking-wider uppercase">Active Engineering Experience</p>
+              </div>
+              <div className="space-y-1">
+                <h4 className="text-4xl sm:text-5xl font-extrabold text-emerald-400">98%</h4>
+                <p className="text-xs text-slate-400 font-mono tracking-wider uppercase">Client Satisfaction Score</p>
+              </div>
+              <div className="space-y-1">
+                <h4 className="text-4xl sm:text-5xl font-extrabold text-white">24 Hr</h4>
+                <p className="text-xs text-slate-400 font-mono tracking-wider uppercase">Average Sprints Turnaround</p>
               </div>
             </div>
           </section>
@@ -510,33 +716,55 @@ export default function FrontendWebsite({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {filteredPortfolio.map((p) => (
-              <div key={p.id} className="bg-white border border-slate-100 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition group">
-                <div className="h-48 overflow-hidden relative">
-                  <img 
-                    src={p.image_url} 
-                    alt={p.title} 
-                    referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover group-hover:scale-105 transition duration-500" 
-                  />
-                  <span className="absolute top-3 left-3 bg-[#001B5E] text-white text-[10px] uppercase font-bold tracking-wider px-2 py-1 rounded">
-                    {p.category}
-                  </span>
-                </div>
-                <div className="p-6 space-y-3">
-                  <span className="text-[11px] text-slate-400 font-mono">CLIENT: {p.client_name}</span>
-                  <h3 className="text-lg font-bold text-slate-900 leading-snug">{p.title}</h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">{p.description}</p>
-                  <div className="flex flex-wrap gap-1.5 pt-2">
-                    {p.tech_stack.map((stk, sidx) => (
-                      <span key={sidx} className="bg-slate-50 border border-slate-100 text-slate-500 font-mono text-[9px] px-2 py-0.5 rounded">
-                        {stk}
-                      </span>
-                    ))}
+            {filteredPortfolio.map((p) => {
+              const isConcept = p.title.toLowerCase().includes("elevate") || p.title.toLowerCase().includes("showcase") || p.title.toLowerCase().includes("concept");
+              return (
+                <div key={p.id} className="bg-white border border-slate-100 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition group flex flex-col justify-between">
+                  <div>
+                    <div className="h-48 overflow-hidden relative">
+                      <img 
+                        src={p.image_url} 
+                        alt={p.title} 
+                        referrerPolicy="no-referrer"
+                        className="w-full h-full object-cover group-hover:scale-105 transition duration-500" 
+                      />
+                      <div className="absolute top-3 left-3 flex flex-col gap-1.5 items-start">
+                        <span className="bg-[#001B5E] text-white text-[9px] uppercase font-bold tracking-wider px-2 py-1 rounded shadow-sm">
+                          {p.category}
+                        </span>
+                        {isConcept ? (
+                          <span className="bg-amber-500 text-white text-[8px] uppercase font-extrabold tracking-widest px-2 py-0.5 rounded shadow-sm">
+                            Concept Case Study
+                          </span>
+                        ) : (
+                          <span className="bg-emerald-600 text-white text-[8px] uppercase font-extrabold tracking-widest px-2 py-0.5 rounded shadow-sm">
+                            Live Client Work
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <div className="p-6 space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] text-slate-400 font-mono font-medium">CLIENT: {p.client_name}</span>
+                        <span className="text-[10px] text-slate-500 font-mono font-bold">{p.completion_date}</span>
+                      </div>
+                      <h3 className="text-base font-bold text-slate-900 leading-snug group-hover:text-[#0A66FF] transition-colors">{p.title}</h3>
+                      <p className="text-xs text-slate-600 leading-relaxed font-light">{p.description}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="p-6 pt-0 space-y-3">
+                    <div className="flex flex-wrap gap-1.5 border-t border-slate-50 pt-4">
+                      {p.tech_stack.map((stk, sidx) => (
+                        <span key={sidx} className="bg-slate-50 border border-slate-100 text-slate-500 font-mono text-[9px] px-2 py-0.5 rounded">
+                          {stk}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
       )}
@@ -546,37 +774,41 @@ export default function FrontendWebsite({
         <section className="py-16 bg-slate-50">
           <div className="max-w-7xl mx-auto px-4">
             <div className="text-center space-y-4 max-w-3xl mx-auto mb-16">
-              <span className="text-[#0A66FF] uppercase tracking-widest text-xs font-bold text-center">Transparent Pricing</span>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">Preoccupied Package Deals</h2>
-              <p className="text-slate-600">Select standard packages with clear outcomes, or generate a specific customized quotation using our dynamic wizard below.</p>
+              <span className="text-[#0A66FF] uppercase tracking-widest text-xs font-bold font-mono">Transparent Pricing</span>
+              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">Affordable Custom Development Packages</h2>
+              <p className="text-slate-600 text-sm">Select flat-rate packages with guaranteed outcomes, or generate a customized quotation using our instant calculator below.</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               {[
                 { 
                   name: "Starter Website", 
-                  price: "$499", 
-                  desc: "Ideal for basic portfolio listings, startups, and simple local business landings.",
-                  features: ["Up to 5 custom styled pages", "100% Mobile responsive layout", "Secure secure custom contact form", "Basic meta-data title tags set", "1 Month standard repair warranty"]
+                  priceInr: "₹7,999",
+                  priceUsd: "$149",
+                  desc: "Ideal for local landing pages, startups, small portfolios, and simple businesses.",
+                  features: ["Up to 5 highly-optimized pages", "100% Mobile & tablet responsive", "Secure custom contact inquiry form", "Basic title tags & Google search console set", "30-Day post-launch maintenance warranty"]
                 },
                 { 
                   name: "Business Website", 
-                  price: "$1,200", 
+                  priceInr: "₹14,999",
+                  priceUsd: "$299",
                   popular: true,
-                  desc: "Perfect for growing teams, marketing companies, and complete corporate solutions.",
-                  features: ["Up to 15 optimized pages", "Dynamic slide banners & animations", "Dynamic customer acquisition forms", "Complete JSON-LD SEO schema integration", "Speed compressed static assets", "3 Months expert maintenance help"]
+                  desc: "Perfect for growing teams, professional agencies, and complete corporate solutions.",
+                  features: ["Up to 12 responsive web pages", "Dynamic home banners & slide transitions", "Advanced lead generation & popups", "JSON-LD structured schema integration", "Speed compressed static assets (90+ score)", "3 Months dedicated support warranty"]
                 },
                 { 
-                  name: "Premium Website", 
-                  price: "$2,500", 
-                  desc: "High-level agency layout designed to highlight elite corporate portfolios.",
-                  features: ["Unlimited bespoke Figma designs", "Custom API system integrations", "Advanced admin settings controls", "Dynamic database filters", "Interactive Google/Leaflet Maps integration", "Complete source-code delivery files", "6 Months fully covered code updates"]
+                  name: "E-Commerce Store", 
+                  priceInr: "₹24,999",
+                  priceUsd: "$499",
+                  desc: "Fully functional custom retail store designed to capture transactions and scale products.",
+                  features: ["Unlimited catalog items uploaded", "Razorpay / Stripe native checkout", "Secure user registration & customer accounts", "Automated custom email invoicing", "Admin inventory alerts & statistics tracker", "6 Months code updates & backup help"]
                 },
                 { 
-                  name: "E-Commerce Website", 
-                  price: "$3,500", 
-                  desc: "Full functional retail store built to capture payments and manage stock logs seamlessly.",
-                  features: ["Unlimited digital and physical products", "Complete Stripe / Razorpay capture", "Dynamic client login lockboxes", "Automated customer email invoices", "Stock parameters alert settings", "Complete admin order fulfillment boards"]
+                  name: "Premium Platform", 
+                  priceInr: "₹39,999",
+                  priceUsd: "$799",
+                  desc: "High-level bespoke web app built for advanced performance, APIs, and client portals.",
+                  features: ["Bespoke React + Vite + Node architecture", "Custom third-party API configurations", "Complete custom database CRUD modules", "Interactive maps & calendar schedulers", "Premium animations & motion elements", "1-Year comprehensive tech support package"]
                 }
               ].map((pkg, idx) => (
                 <div 
@@ -593,16 +825,19 @@ export default function FrontendWebsite({
                     </span>
                   )}
                   <div>
-                    <h3 className="text-lg font-bold text-slate-900">{pkg.name}</h3>
-                    <p className="text-xs text-slate-500 mt-1">{pkg.desc}</p>
+                    <h3 className="text-base font-bold text-slate-900">{pkg.name}</h3>
+                    <p className="text-[11px] text-slate-500 mt-1 leading-snug">{pkg.desc}</p>
                     <div className="my-6">
-                      <span className="text-3xl font-extrabold text-slate-900">{pkg.price}</span>
-                      <span className="text-xs text-slate-400 font-medium"> / one-time</span>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-3xl font-extrabold text-slate-900">{pkg.priceInr}</span>
+                        <span className="text-xs text-slate-400">/ one-time</span>
+                      </div>
+                      <div className="text-[10px] text-slate-400 font-mono font-medium mt-0.5">Equivalent to {pkg.priceUsd} USD</div>
                     </div>
                     <ul className="space-y-3 border-t border-slate-100 pt-4 mb-6 text-xs text-slate-600">
                       {pkg.features.map((f, fidx) => (
                         <li key={fidx} className="flex gap-2">
-                          <Check className="w-4 h-4 text-emerald-500 shrink-0" /> {f}
+                          <Check className="w-4 h-4 text-emerald-500 shrink-0" /> <span className="leading-tight font-light">{f}</span>
                         </li>
                       ))}
                     </ul>
@@ -616,9 +851,9 @@ export default function FrontendWebsite({
                         if (el) el.scrollIntoView({ behavior: "smooth" });
                       }, 100);
                     }}
-                    className={`w-full py-2.5 rounded font-semibold text-xs text-center transition ${
+                    className={`w-full py-2.5 rounded font-bold text-xs text-center transition uppercase tracking-wider ${
                       pkg.popular 
-                        ? "bg-[#0A66FF] text-white hover:bg-opacity-95" 
+                        ? "bg-[#0A66FF] text-white hover:bg-blue-600" 
                         : "bg-slate-50 text-slate-700 hover:bg-slate-100"
                     }`}
                   >
@@ -1283,113 +1518,179 @@ export default function FrontendWebsite({
 
       {/* 8. CONTACT VIEW */}
       {(activeSubTab === "contact" || activeSubTab === "about") && (
-        <section className="py-16 bg-slate-50">
+        <section className="py-16 bg-slate-50" id="consultation-section">
           <div className="max-w-6xl mx-auto px-4">
             <div className="text-center space-y-4 max-w-3xl mx-auto mb-16">
-              <span className="text-[#0A66FF] uppercase tracking-widest text-xs font-bold">Get In Touch</span>
-              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">Contact WebNest CRM Platform</h2>
-              <p className="text-slate-600 font-medium">Have a project proposal? Log an inquiry below to start mapping details inside the admin dashboard.</p>
+              <span className="text-[#0A66FF] uppercase tracking-widest text-xs font-bold font-mono">Let's Partner</span>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900">Book a Free Consultation</h2>
+              <p className="text-slate-600 text-sm">Have a project proposal or need expert guidance? Log an inquiry below or reach out directly to schedule a 30-minute discovery call.</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-              <div className="md:col-span-5 bg-[#001B5E] text-white p-8 rounded-2xl shadow-xl space-y-8">
-                <div>
-                  <h3 className="text-lg font-bold text-white mb-2">Corporate Office</h3>
-                  <p className="text-xs text-slate-300 leading-relaxed">Let's discuss. Connect directly via physical mail routing or phone lines.</p>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+              {/* Informational Column with Map and WhatsApp */}
+              <div className="lg:col-span-5 space-y-6">
+                <div className="bg-[#001446] text-white p-8 rounded-2xl shadow-xl space-y-6">
+                  <div>
+                    <span className="bg-blue-500/20 text-blue-300 text-[9px] uppercase font-bold tracking-widest px-2 py-0.5 rounded-full inline-block mb-3 border border-blue-400/20">
+                      ✨ CONSULTATION OFFER
+                    </span>
+                    <h3 className="text-lg font-bold text-white mb-2">Connect Instantly</h3>
+                    <p className="text-xs text-slate-300 leading-relaxed font-light">
+                      We respond to all website and application inquiries within 2 hours. Our solutions engineers are ready to draft a complete, free tech blueprint for your company.
+                    </p>
+                  </div>
+
+                  <div className="space-y-4 text-xs font-medium text-slate-200 border-t border-white/10 pt-6">
+                    <div className="flex gap-3">
+                      <MapPin className="w-4.5 h-4.5 text-[#4DA3FF] shrink-0" />
+                      <span>Kolkata Office: Salt Lake Sector V, West Bengal 700091<br />Headquarters: Durgapur, West Bengal 713205</span>
+                    </div>
+                    <div className="flex gap-3 items-center">
+                      <Phone className="w-4.5 h-4.5 text-[#4DA3FF] shrink-0" />
+                      <span>+91 7908774055</span>
+                    </div>
+                    <div className="flex gap-3 items-center">
+                      <Mail className="w-4.5 h-4.5 text-[#4DA3FF] shrink-0" />
+                      <span>webnestsupport@gmail.com</span>
+                    </div>
+                    <div className="flex gap-3">
+                      <Clock className="w-4.5 h-4.5 text-[#4DA3FF] shrink-0" />
+                      <span>Business Hours: Mon - Sat (9:00 AM - 7:00 PM IST)</span>
+                    </div>
+                  </div>
+
+                  {/* Direct WhatsApp Action */}
+                  <div className="pt-4 border-t border-white/10">
+                    <a 
+                      href="https://wa.me/917908774055" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider rounded-lg transition flex items-center justify-center gap-2 shadow-md"
+                    >
+                      <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24">
+                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.864-9.864.002-2.637-1.03-5.115-2.906-6.99C16.554 1.875 14.09 1.84 12.01 1.84c-5.44 0-9.866 4.421-9.87 9.864-.001 1.779.482 3.513 1.397 5.093L2.52 21.48l4.127-1.326z"/>
+                      </svg>
+                      Chat Live on WhatsApp
+                    </a>
+                  </div>
                 </div>
-                <div className="space-y-4 text-xs font-medium text-slate-200">
-                  <div className="flex gap-3">
-                    <MapPin className="w-4.5 h-4.5 text-[#4DA3FF] shrink-0" />
-                    <span>Durgapur, West Bengal 713205</span>
+
+                {/* Styled Interactive Map Mockup */}
+                <div className="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-slate-800 flex items-center gap-1.5 font-mono">
+                      <span className="w-2 h-2 rounded-full bg-[#0A66FF] animate-pulse"></span>
+                      WEBNEST GEOLOCATION
+                    </span>
+                    <span className="text-[10px] text-slate-400 font-mono">MAP VIEW</span>
                   </div>
-                  <div className="flex gap-3">
-                    <Phone className="w-4.5 h-4.5 text-[#4DA3FF] shrink-0" />
-                    <span>+91 7908774055</span>
+                  
+                  {/* Visual Map container */}
+                  <div className="h-44 bg-slate-900 rounded-xl relative overflow-hidden flex flex-col justify-end p-4 border border-slate-100">
+                    {/* Visual map graphics (simplified radar coordinates) */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent z-10"></div>
+                    
+                    {/* Simulated city blocks */}
+                    <div className="absolute inset-0 opacity-15 pointer-events-none">
+                      <div className="w-full h-full border-b border-r border-white/20 grid grid-cols-6 grid-rows-6">
+                        {[...Array(36)].map((_, i) => <div key={i} className="border-t border-l border-white/10"></div>)}
+                      </div>
+                    </div>
+                    
+                    {/* Pulsing headquarters coordinate */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center">
+                      <span className="w-4 h-4 bg-blue-500 rounded-full animate-ping absolute opacity-75"></span>
+                      <span className="w-3.5 h-3.5 bg-[#0A66FF] rounded-full border border-white relative shadow z-10 flex items-center justify-center">
+                        <MapPin className="w-2 h-2 text-white" />
+                      </span>
+                      <span className="bg-slate-900 border border-white/10 text-[9px] font-mono text-blue-300 font-bold px-2 py-0.5 rounded shadow-lg mt-1 whitespace-nowrap">
+                        Salt Lake Sec V Office
+                      </span>
+                    </div>
+
+                    <div className="relative z-15 text-white space-y-1">
+                      <p className="text-[10px] font-bold">Kolkata Tech Hub</p>
+                      <p className="text-[9px] text-slate-400">Salt Lake Sector V, West Bengal, India</p>
+                    </div>
                   </div>
-                  <div className="flex gap-3">
-                    <Mail className="w-4.5 h-4.5 text-[#4DA3FF] shrink-0" />
-                    <span>webnestsupport@gmail.com</span>
-                  </div>
-                </div>
-                <div className="border-t border-white/10 pt-6 space-y-2">
-                  <span className="text-[10px] uppercase font-mono text-blue-300">Live app support</span>
-                  <p className="text-xs text-slate-400">Our customer portal allows viewing quotation logs, downloading invoices, and tracking milestones directly from other viewtabs.</p>
                 </div>
               </div>
 
-              <div className="md:col-span-7 bg-white border border-slate-100 rounded-2xl p-6 sm:p-8 shadow-sm">
+              {/* Contact Form Column */}
+              <div className="lg:col-span-7 bg-white border border-slate-100 rounded-2xl p-6 sm:p-8 shadow-sm">
                 {contactSuccess ? (
                   <div className="p-8 text-center bg-emerald-50 border border-emerald-100 rounded-lg space-y-4">
-                    <Check className="w-12 h-12 text-emerald-500 mx-auto" />
+                    <Check className="w-12 h-12 text-emerald-500 mx-auto animate-bounce" />
                     <div className="space-y-1">
                       <h4 className="text-lg font-bold text-emerald-800">Inquiry Logged Successfully!</h4>
-                      <p className="text-xs text-emerald-600">Your details are logged inside CRM database. Lead administrators have been notified.</p>
+                      <p className="text-xs text-emerald-600">Your details are logged inside WebNest's database. A systems engineer will contact you shortly.</p>
                     </div>
                   </div>
                 ) : (
-                  <form onSubmit={handleContactSubmit} className="space-y-4">
+                  <form onSubmit={handleContactSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="space-y-1">
-                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Your Name *</label>
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">Your Name *</label>
                         <input 
                           type="text" 
                           required 
-                          placeholder="Anand" 
+                          placeholder="Anand Kumar" 
                           value={contactName}
                           onChange={(e) => setContactName(e.target.value)}
-                          className="w-full border border-slate-200 focus:border-[#0A66FF] rounded px-3 py-2 text-sm outline-none"
+                          className="w-full bg-slate-50 border border-slate-200 focus:border-[#0A66FF] focus:bg-white text-slate-800 text-sm rounded px-3 py-2.5 outline-none transition duration-150"
                         />
                       </div>
-                      <div className="space-y-1">
-                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Email Address *</label>
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">Email Address *</label>
                         <input 
                           type="email" 
                           required 
                           placeholder="anand@example.com" 
                           value={contactEmail}
                           onChange={(e) => setContactEmail(e.target.value)}
-                          className="w-full border border-slate-200 focus:border-[#0A66FF] rounded px-3 py-2 text-sm outline-none"
+                          className="w-full bg-slate-50 border border-slate-200 focus:border-[#0A66FF] focus:bg-white text-slate-800 text-sm rounded px-3 py-2.5 outline-none transition duration-150"
                         />
                       </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="space-y-1">
-                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Phone Phone</label>
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">Phone Number *</label>
                         <input 
                           type="tel" 
+                          required
                           placeholder="+91 82404 XXXX" 
                           value={contactPhone}
                           onChange={(e) => setContactPhone(e.target.value)}
-                          className="w-full border border-slate-200 focus:border-[#0A66FF] rounded px-3 py-2 text-sm outline-none"
+                          className="w-full bg-slate-50 border border-slate-200 focus:border-[#0A66FF] focus:bg-white text-slate-800 text-sm rounded px-3 py-2.5 outline-none transition duration-150"
                         />
                       </div>
-                      <div className="space-y-1">
-                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Business Name</label>
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">Business Name</label>
                         <input 
                           type="text" 
-                          placeholder="Apex Tech" 
+                          placeholder="Apex Tech India" 
                           value={contactBiz}
                           onChange={(e) => setContactBiz(e.target.value)}
-                          className="w-full border border-slate-200 focus:border-[#0A66FF] rounded px-3 py-2 text-sm outline-none"
+                          className="w-full bg-slate-50 border border-slate-200 focus:border-[#0A66FF] focus:bg-white text-slate-800 text-sm rounded px-3 py-2.5 outline-none transition duration-150"
                         />
                       </div>
                     </div>
-                    <div className="space-y-1">
-                      <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Detailed Scope Message *</label>
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">Detailed Scope Message *</label>
                       <textarea 
                         required 
                         rows={5} 
-                        placeholder="Detail your company development requirements..." 
+                        placeholder="Please describe your specific project requirements (e.g. number of pages, custom features, target launch date)..." 
                         value={contactMsg}
                         onChange={(e) => setContactMsg(e.target.value)}
-                        className="w-full border border-slate-200 focus:border-[#0A66FF] rounded px-3 py-2 text-sm outline-none leading-relaxed"
+                        className="w-full bg-slate-50 border border-slate-200 focus:border-[#0A66FF] focus:bg-white text-slate-800 text-sm rounded px-3 py-2.5 outline-none transition duration-150 leading-relaxed placeholder:text-slate-400"
                       />
                     </div>
                     <button 
                       type="submit" 
-                      className="w-full py-3 bg-[#0A66FF] hover:bg-[#001B5E] text-white font-bold text-xs uppercase tracking-wider rounded transition flex items-center justify-center gap-2"
+                      className="w-full py-3.5 bg-[#0A66FF] hover:bg-[#001446] text-white font-bold text-xs uppercase tracking-widest rounded-lg transition duration-200 flex items-center justify-center gap-2 shadow-lg"
                     >
-                      <Send className="w-4 h-4" /> Log CRM Inquiry
+                      <Send className="w-4 h-4" /> Schedule Free Consultation Call
                     </button>
                   </form>
                 )}
@@ -1400,39 +1701,63 @@ export default function FrontendWebsite({
       )}
 
       {/* Corporate footer */}
-      <footer className="bg-slate-950 text-slate-400 py-12 border-t border-slate-900 mt-auto">
-        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-4 gap-8">
-          <div className="space-y-3">
+      <footer className="bg-slate-950 text-slate-400 py-16 border-t border-slate-900 mt-auto">
+        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8">
+          <div className="space-y-4 md:col-span-2">
             <WebNestLogo size="sm" showText={true} theme="dark" />
-            <p className="text-xs leading-relaxed">
-              Modern WordPress, E-Commerce, Custom SaaS web architectures tailored meticulously for small business partnerships.
+            <p className="text-xs leading-relaxed max-w-sm text-slate-400 font-light">
+              WebNest is an elite, full-service website development company and digital marketing agency in India. We construct bespoke, high-performance web systems and scale search rankings organically with precision coding.
             </p>
-          </div>
-          <div className="space-y-2 text-xs">
-            <span className="text-white font-bold block mb-1">Company Views</span>
-            {["home", "services", "portfolio", "pricing", "about"].map(v => (
-              <button key={v} onClick={() => { setActiveSubTab(v); }} className="block hover:text-white capitalize transition">
-                {v}
-              </button>
-            ))}
-          </div>
-          <div className="space-y-2 text-xs">
-            <span className="text-white font-bold block mb-1">Interactive Tools</span>
-            <button onClick={() => { setActiveSubTab("audit"); }} className="block hover:text-white transition">🔍 Instant AI Audit Report</button>
-            <button onClick={() => { setActiveSubTab("quote"); }} className="block hover:text-white transition">📊 Calculate Price Estimates</button>
-            <button onClick={() => { setActiveSubTab("contact"); }} className="block hover:text-white transition">📧 Submit RFQ Inquiries</button>
+            <div className="flex space-x-3 text-slate-500 text-xs">
+              <span className="font-mono text-[10px] uppercase font-bold text-slate-400 border border-slate-800 px-2.5 py-1 rounded">🛡️ Clean Code Certified</span>
+              <span className="font-mono text-[10px] uppercase font-bold text-slate-400 border border-slate-800 px-2.5 py-1 rounded">⚡ PageSpeed 90+</span>
+            </div>
           </div>
           <div className="space-y-3 text-xs">
-            <span className="text-white font-bold block">Physical Headquarters</span>
-            <p>Durgapur, West Bengal 713205</p>
-            <p className="text-[#4DA3FF] font-semibold font-mono">{settings.phone}</p>
-            <p className="font-mono">{settings.email}</p>
+            <span className="text-white font-bold block text-sm tracking-wide">Core Services</span>
+            <ul className="space-y-2">
+              <li><button onClick={() => setActiveSubTab("services")} className="hover:text-white transition font-light">Custom Web Development</button></li>
+              <li><button onClick={() => setActiveSubTab("services")} className="hover:text-white transition font-light">E-Commerce Store Design</button></li>
+              <li><button onClick={() => setActiveSubTab("services")} className="hover:text-white transition font-light">SEO & Speed Optimization</button></li>
+              <li><button onClick={() => setActiveSubTab("services")} className="hover:text-white transition font-light">Mobile App Engineering</button></li>
+              <li><button onClick={() => setActiveSubTab("services")} className="hover:text-white transition font-light">Digital Marketing Strategy</button></li>
+            </ul>
+          </div>
+          <div className="space-y-3 text-xs">
+            <span className="text-white font-bold block text-sm tracking-wide">Quick Navigation</span>
+            <ul className="space-y-2">
+              {["home", "services", "portfolio", "pricing", "blogs", "contact"].map(v => (
+                <li key={v}>
+                  <button 
+                    onClick={() => { setActiveSubTab(v); }} 
+                    className="hover:text-white capitalize transition font-light"
+                  >
+                    {v === "pricing" ? "Plans & Quote" : v === "contact" ? "About & Contact" : v}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="space-y-3 text-xs">
+            <span className="text-white font-bold block text-sm tracking-wide">Headquarters</span>
+            <p className="font-light leading-relaxed">
+              Salt Lake Sector V, Kolkata, West Bengal 700091
+            </p>
+            <p className="font-light text-slate-500">
+              Durgapur, WB 713205
+            </p>
+            <div className="space-y-1 pt-2">
+              <p className="text-[#4DA3FF] font-semibold font-mono">{settings.phone}</p>
+              <p className="font-mono text-xs hover:text-white transition"><a href={`mailto:${settings.email}`}>{settings.email}</a></p>
+            </div>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto px-4 border-t border-slate-900 mt-8 pt-6 text-center text-[10px] text-slate-600 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <span>&copy; {new Date().getFullYear()} WebNest Digital Group. Code protected by MVC architectural guidelines.</span>
+        <div className="max-w-7xl mx-auto px-4 border-t border-slate-900 mt-12 pt-8 text-center text-[10px] text-slate-600 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <span>&copy; {new Date().getFullYear()} WebNest Digital Group. All rights reserved. Configured with secure SEO markup.</span>
           <div className="flex space-x-4">
-            <a href="https://webnest-two.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400">Official WebNest Page</a>
+            <a href="https://webnest-two.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 font-medium">Official WebNest Portal</a>
+            <span className="text-slate-800">|</span>
+            <span className="text-slate-500 font-mono font-bold">PROUDLY BUILT IN INDIA 🇮🇳</span>
           </div>
         </div>
       </footer>
